@@ -1,17 +1,26 @@
 {
-  "name": "",
+  "name": "blitva-customer-questions-service",
   "version": "",
-  "description": "",
+  "description": "Customer questions service for the Front End Capstone project. Amazon.com item detail page. Team Blitva.",
   "author": "",
-  "license": "",
+  "license": "MIT license",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blitva/product-features-service.git"
+  },
   "engines": {
     "node": ">=6.13.0"
   },
   "scripts": {
+    "seed-database": "node database/seed-data/seeder.js"
   },
   "dependencies": {
+    "faker": "^5.1.0",
+    "mongoose": "^5.11.12"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.7"
   }
 }
