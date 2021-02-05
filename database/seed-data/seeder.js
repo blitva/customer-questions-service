@@ -4,7 +4,7 @@ const { fakeDataGenerator } = require('./fakeDataGenerator.js');
 
 async function seedDatabase(recordsToCreate, startingRecordID) {
   try {
-    const fakeData = await fakeDataGenerator(100, 1000);
+    const fakeData = await fakeDataGenerator(recordsToCreate, startingRecordID);
 
     (async () => {
       try {

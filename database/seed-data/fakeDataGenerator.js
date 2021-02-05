@@ -31,6 +31,11 @@ const fakeAnswers = async () => {
 };
 
 const fakeDataGenerator = async (recordsToCreate, startingRecordID) => {
+
+  if (recordsToCreate === undefined || startingRecordID === undefined) {
+    throw new Error('Must include recordsToCreate and startingRecordID params');
+  }
+
   let data = [];
 
   // generate N number of records based on param
