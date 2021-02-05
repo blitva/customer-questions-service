@@ -2,16 +2,18 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   body {
+    font-size: 14px;
+    line-height: 20px;
+    color: #0F1111;
     font-family:'Amazon Ember', Arial, sans-serif;
     max-width: 1504px;
     margin: 0px auto 0px auto;
   }
 
   h2 {
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 48px;
-    letter-spacing: -1px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
   }
 
   h4 {
