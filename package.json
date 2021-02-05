@@ -13,7 +13,9 @@
   },
   "scripts": {
     "mocha-tests": "./node_modules/mocha/bin/mocha --no-deprecation",
-    "seeder": "node database/seed-data/seeder.js"
+    "seeder": "node database/seed-data/seeder.js",
+    "build-dev": "webpack --config webpack.config.js --watch",
+    "server-dev": "nodemon server/server.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
