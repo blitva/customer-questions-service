@@ -14,16 +14,6 @@ const corsOptions = {
   optionsSuccessStatus: 200
 }
 
-// open mongoose connection
-mongoose.connect('mongodb://localhost/fec_product_features', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true
-});
-
-mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
-
 // express middleware
 app.get('/customer-questions/:id', (req, res) => {
   let productId = req.query.productId;
