@@ -12,8 +12,8 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
-    "seed-database": "node database/seed-data/seeder.js"
+    "mocha-tests": "./node_modules/mocha/bin/mocha --no-deprecation",
+    "seeder": "node database/seed-data/seeder.js"
   },
   "dependencies": {
     "faker": "^5.1.0",
