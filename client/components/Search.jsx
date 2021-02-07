@@ -2,31 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import icons from '../images/icons.png';
 
-function Search() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const handleChange = event => {
-    setSearchTerm(event.target.value);
-  };
-
-  return (
-    <SearchContainer>
-      <SearchIcon></SearchIcon>
-      <SearchForm
-        type='search'
-        maxlength='150'
-        autocomplete='off'
-        placeholder='Have a question? Search for answers'
-        value={searchTerm}
-        onChange={handleChange}
-      >
-      </SearchForm>
-    </SearchContainer>
-  )
-}
-
-export default Search;
-
-// Styles
 const SearchContainer = styled.div`
   height: 31px;
   width: 800px;
@@ -59,3 +34,27 @@ const SearchForm = styled.input`
   cursor: default;
   font-weight: 400l
 `;
+
+const Search = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  return (
+    <SearchContainer>
+      <SearchIcon></SearchIcon>
+      <SearchForm
+        type='search'
+        maxlength='150'
+        autocomplete='off'
+        placeholder='Have a question? Search for answers'
+        value={searchTerm}
+        onChange={handleChange}
+      >
+      </SearchForm>
+    </SearchContainer>
+  )
+}
+
+export default Search;

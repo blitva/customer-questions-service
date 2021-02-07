@@ -3,24 +3,6 @@ import styled from 'styled-components';
 import up_arrow from '../images/up_arrow.png';
 import down_arrow from '../images/down_arrow.png';
 
-function Votes() {
-  const [vote, setVote] = useState(0);
-
-  return (
-    <VoteWidget>
-      <VoteContainer>
-        <li><UpArrow onClick={() => setVote(vote + 1)}/></li>
-        <li>{vote + 187}</li>
-        <li>votes</li>
-        <li><DownArrow onClick={() => setVote(vote + - 1)}/></li>
-      </VoteContainer>
-    </VoteWidget>
-  );
-}
-
-export default Votes;
-
-// Styles
 const VoteWidget = styled.div`
   width: 65px;
   text-align: center;
@@ -53,3 +35,20 @@ const DownArrow = styled(UpArrow)`
   background-image: url(${down_arrow});
   padding: 5px;
 `;
+
+const Votes = () => {
+  const [vote, setVote] = useState(0);
+
+  return (
+    <VoteWidget>
+      <VoteContainer>
+        <li><UpArrow onClick={() => setVote(vote + 1)}/></li>
+        <li>{vote + 187}</li>
+        <li>votes</li>
+        <li><DownArrow onClick={() => setVote(vote + - 1)}/></li>
+      </VoteContainer>
+    </VoteWidget>
+  );
+}
+
+export default Votes;

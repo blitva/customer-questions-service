@@ -7,6 +7,16 @@ import Search from './Search.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 
+const AskContainer = styled.div`
+  height: 106px;
+  width: 800px;
+  display: inline-block;
+  line-height: 20px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow-wrap: break-word;
+`;
+
 class CustomerQuestions extends Component {
   constructor(props) {
     super(props);
@@ -33,14 +43,3 @@ class CustomerQuestions extends Component {
 }
 
 export default CustomerQuestions;
-
-// Styles
-const AskContainer = styled.div`
-  height: 106px;
-  width: 800px;
-  display: inline-block;
-  line-height: 20px;
-  margin-bottom: 12px;
-  position: relative;
-  overflow-wrap: break-word;
-`;
