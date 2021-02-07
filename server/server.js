@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 4001;
 const cors = require('cors');
-const mongoose = require('mongoose');
 const db = require('../database/database.js');
 
 app.use(cors());
@@ -14,7 +13,6 @@ const corsOptions = {
   optionsSuccessStatus: 200
 }
 
-// express middleware
 app.get('/customer-questions/:id', (req, res) => {
   const productId = req.params.id;
   console.log(`Requesting product ${productId} from the database.`)
