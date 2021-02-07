@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import up_arrow from '../images/up_arrow.png';
 import down_arrow from '../images/down_arrow.png';
 
-function Votes() {
-  const [vote, setVote] = useState(0);
+const Votes = (props) => {
+  const [vote, setVote] = useState(props.votes);
 
   return (
     <VoteWidget>
       <VoteContainer>
         <li><UpArrow onClick={() => setVote(vote + 1)}/></li>
-        <li>{vote + 187}</li>
+        <li>{vote}</li>
         <li>votes</li>
         <li><DownArrow onClick={() => setVote(vote + - 1)}/></li>
       </VoteContainer>
