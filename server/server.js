@@ -16,14 +16,15 @@ const corsOptions = {
 
 // express middleware
 app.get('/customer-questions/:id', (req, res) => {
-  let productId = req.query.productId;
+  const productId = req.params.id;
   console.log(`Requesting product ${productId} from the database.`)
   db.load(productId, (err, data) => {
     if (err) {
+      console.log(err);
       res.sendStatus(404);
+    } else {
+      res.json(data);
     }
-    res.json(data);
-    res.sendStatus(200);
   });
 });
 
