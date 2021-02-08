@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // open mongoose connection
-mongoose.connect('mongodb://localhost/fec_product_features', {
+mongoose.connect('mongodb://localhost/fec_customer_questions', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -52,3 +52,4 @@ const load = (productId, callback) => {
 }
 
 module.exports = CustomerQuestions;
+module.exports.load = load;
