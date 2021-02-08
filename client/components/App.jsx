@@ -8,17 +8,31 @@ import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 
 const AskContainer = styled.div`
-  height: 106px;
+  /* height: 106px; */
   width: 800px;
   display: inline-block;
   line-height: 20px;
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
   position: relative;
   overflow-wrap: break-word;
 `;
 
-const CustomerQuestions = (props) => {
+const Button = styled.button`
+  height: 30px;
+  width: 230px;
+  padding: 0px 10px 0px 11px;
+`;
+
+const CustomerQuestions = () => {
   const [customerQuestionsData, setCustomerQuestionsData] = useState(null);
+  const [questionAnswers, setQuestionAnswers] = useState(customerQuestionsData);
+  const [showAmt, setShowAmt] = useState(3);
+  let dataToShow;
+
+  if (customerQuestionsData !== null) {
+    dataToShow = customerQuestionsData.slice(0, showAmt);
+  }
+
 
   const getCustomerQuestionsData = (productId) => {
     axios.get(`/customer-questions/${productId}`)
@@ -29,6 +43,18 @@ const CustomerQuestions = (props) => {
       .catch(err => {
         console.log(err);
       })
+  }
+
+  const seeMore = () => {
+    if (showAmt === customerQuestionsData.length - 1) {
+      setShowAmt(prevShowAmt => prevShowAmt + 1);
+    } else if (showAmt < customerQuestionsData.length) {
+      setShowAmt(prevShowAmt => prevShowAmt + 2);
+    }
+  }
+
+  const collapseAll = () => {
+    setShowAmt(3);
   }
 
   useEffect(() => {
@@ -46,17 +72,21 @@ const CustomerQuestions = (props) => {
         <div>
           <Search/>
         </div>
-        {customerQuestionsData.map((data, i) => {
+        {dataToShow.map((data, i) => {
           return (
             <AskContainer key={i}>
               <Votes votes={data.rating}/>
               <QuestionsAnswers
                 question={data.question}
-                answers={data.answers}
-              />
+                answers={data.answers}/>
             </AskContainer>
           )
         })}
+        {(customerQuestionsData.length - showAmt === 0
+          ? <Button onClick={collapseAll}>Collapse all</Button>
+          : <Button onClick={seeMore}>
+            See more answered questions ({customerQuestionsData.length - showAmt})</Button>
+          )}
       </div>
     )
   )

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Answers from './Answers.jsx';
 
 const QandAContainer = styled.div`
   /* height: 126px; */
@@ -29,54 +30,36 @@ const Question = styled.div`
   margin-left: 30px;
 `;
 
-const Answers = styled(Question)`
+const StyledAnswers = styled(Question)`
   width: 625px;
   margin-left: 40px;
-  margin-bottom: 8px;
   color: #0F1111
-`;
-
-const User = styled.span`
-  color: #565959!important;
-`;
-
-const SeeMoreAnswers = styled.div`
-  width: 625px;
-  height: 20px;
-  padding-top: 6px;
 `;
 
 const Links = styled.a`
   color: #007185;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
 `;
 
 const QuestionsAnswers = (props) => {
-  const question = props.question;
-  const answer = props.answers[0].answer;
-  const user = props.answers[0].user;
-  const date = props.answers[0].date;
 
   return (
     <QandAContainer>
-      <QuestionBlock>
+      <QuestionBlock id="test">
         <QuestionHeader>Question:</QuestionHeader>
         <Question>
           <Links href="#">
-            {question}
+            {props.question}
           </Links>
         </Question>
       </QuestionBlock>
       <AnswersBlock>
         <AnswerHeader>Answer:</AnswerHeader>
-        <Answers>
-          {answer} <br/>
-          <User>By {user} on {date}</User><br/>
-          <SeeMoreAnswers>
-            <Links href="#">
-              See more answers ({props.answers.length})
-            </Links>
-          </SeeMoreAnswers>
-        </Answers>
+        <StyledAnswers>
+          <Answers
+            answers = {props.answers}/>
+        </StyledAnswers>
       </AnswersBlock>
     </QandAContainer>
   )
