@@ -14,7 +14,7 @@ const corsOptions = {
 }
 
 app.get('/customer-questions/:id', (req, res) => {
-  const productId = req.params.id;
+  const productId = parseInt(req.params.id, 10);
   console.log(`Requesting product ${productId} from the database.`)
   db.load(productId, (err, data) => {
     if (err) {
