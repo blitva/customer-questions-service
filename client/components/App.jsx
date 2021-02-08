@@ -64,7 +64,7 @@ const CustomerQuestions = () => {
 
   return (
     (customerQuestionsData === null
-    ? <div>Loading...</div>
+    ? <div>404</div>
     : <div>
         {console.log(customerQuestionsData)}
         <GlobalStyles/>
@@ -84,8 +84,10 @@ const CustomerQuestions = () => {
         })}
         {(customerQuestionsData.length - showAmt === 0
           ? <Button onClick={collapseAll}>Collapse all</Button>
-          : <Button onClick={seeMore}>
+          : customerQuestionsData.length > 4
+          ? <Button onClick={seeMore}>
             See more answered questions ({customerQuestionsData.length - showAmt})</Button>
+          : <></>
           )}
       </div>
     )
