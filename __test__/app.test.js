@@ -17,9 +17,9 @@ describe('<CustomerQuestions />', () => {
   });
 
   it('allows us to set props', () => {
-    const wrapper = mount(<CustomerQuestions question="Do pigs fly?" />);
-    expect(wrapper.props().question).toEqual('Do pigs fly?');
-    wrapper.setProps({ question: 'Do pigs fly?'});
-    expect(wrapper.props().question).toEqual('Do pigs fly?');
+    const wrapper = mount(<CustomerQuestions question="Can pigs fly?" />);
+    expect(wrapper.props().question).toEqual('Can pigs fly?');
+    wrapper.setProps({ question: 'Can pigs fly?'});
+    expect(wrapper.props().question).toEqual('Can pigs fly?');
   })
 });
