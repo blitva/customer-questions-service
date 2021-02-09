@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Answers from './Answers.jsx';
 
 const QandAContainer = styled.div`
-  /* height: 126px; */
   padding-left: 7.25px;
   display: block;
   float: left;
