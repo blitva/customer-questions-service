@@ -8,19 +8,24 @@ import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 
 const AskContainer = styled.div`
-  /* height: 106px; */
   width: 800px;
   display: inline-block;
   line-height: 20px;
-  /* margin-bottom: 12px; */
   position: relative;
   overflow-wrap: break-word;
+`;
+
+const SeeMoreQuestions = styled.div`
+  width: 800px;
+  margin-bottom: 12px;
+  padding-left: 165px;
 `;
 
 const Button = styled.button`
   height: 30px;
   width: 230px;
   padding: 0px 10px 0px 11px;
+  position: relative;
 `;
 
 const CustomerQuestions = () => {
@@ -82,13 +87,17 @@ const CustomerQuestions = () => {
             </AskContainer>
           )
         })}
-        {(customerQuestionsData.length - showAmt === 0
-          ? <Button onClick={collapseAll}>Collapse all</Button>
-          : customerQuestionsData.length > 4
-          ? <Button onClick={seeMore}>
-            See more answered questions ({customerQuestionsData.length - showAmt})</Button>
-          : <></>
-          )}
+        <SeeMoreQuestions>
+          {(customerQuestionsData.length === 3
+            ? <></>
+            : customerQuestionsData.length - showAmt === 0
+            ? <Button onClick={collapseAll}>Collapse</Button>
+            : customerQuestionsData.length > 3
+            ? <Button onClick={seeMore}>
+              See more answered questions ({customerQuestionsData.length - showAmt})</Button>
+            : <></>
+            )}
+        </SeeMoreQuestions>
       </div>
     )
   )

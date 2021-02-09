@@ -62,7 +62,9 @@ const Answers = (props) => {
       )
     })}
       <SeeMoreAnswers>
-        {(props.answers.length - showAmt === 0
+        {(props.answers.length === 1
+          ? <></>
+          : props.answers.length - showAmt === 0
           ? <button onClick={collapseAll}> Collapse all answers </button>
           : <Link onClick={seeMore}>See more answers ({props.answers.length - showAmt})</Link>
           )}
