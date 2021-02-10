@@ -23,4 +23,4 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 public/
 !index.html
-
+__snapshots__

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Answers from './Answers.jsx';
 
 const QandAContainer = styled.div`
-  // width: 735px;
-  height: 126px;
   padding-left: 7.25px;
   display: block;
   float: left;
   margin-left: 40px;
+  position: relative;
 `;
 
 const QuestionBlock = styled.div`
@@ -29,49 +29,36 @@ const Question = styled.div`
   margin-left: 30px;
 `;
 
-const Answers = styled(Question)`
+const StyledAnswers = styled(Question)`
   width: 625px;
   margin-left: 40px;
-  margin-bottom: 8px;
   color: #0F1111
-`;
-
-const User = styled.span`
-  color: #565959!important;
-`;
-
-const SeeMoreAnswers = styled.div`
-  width: 625px;
-  height: 20px;
-  padding-top: 6px;
 `;
 
 const Links = styled.a`
   color: #007185;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
 `;
 
-const QuestionsAnswers = () => {
+const QuestionsAnswers = (props) => {
+
   return (
     <QandAContainer>
-      <QuestionBlock>
+      <QuestionBlock id="test">
         <QuestionHeader>Question:</QuestionHeader>
         <Question>
           <Links href="#">
-            Can it be paired with another identical Echo for true stereo?
+            {props.question}
           </Links>
         </Question>
       </QuestionBlock>
       <AnswersBlock>
         <AnswerHeader>Answer:</AnswerHeader>
-        <Answers>
-          Yes. I just set up a system with a show or dot in every room for my elderly mother less than a week ago. You can either create a group of just the couple/few that you want to work together, or if you want the music to play on all the echos, dots, and shows simultaneously just say "Alexa, play (name your music) everywhere." "Everywhere" is the key command, and that works without defining or setting up a group. <br/>
-          <User>By Janet W. on October 22, 2020</User><br/>
-          <SeeMoreAnswers>
-            <Links href="#">
-              See more answers (39)
-            </Links>
-          </SeeMoreAnswers>
-        </Answers>
+        <StyledAnswers>
+          <Answers
+            answers = {props.answers}/>
+        </StyledAnswers>
       </AnswersBlock>
     </QandAContainer>
   )

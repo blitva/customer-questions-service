@@ -36,14 +36,14 @@ const DownArrow = styled(UpArrow)`
   padding: 5px;
 `;
 
-const Votes = () => {
-  const [vote, setVote] = useState(0);
+const Votes = (props) => {
+  const [vote, setVote] = useState(props.votes);
 
   return (
     <VoteWidget>
       <VoteContainer>
         <li><UpArrow onClick={() => setVote(vote + 1)}/></li>
-        <li>{vote + 187}</li>
+        <li>{vote}</li>
         <li>votes</li>
         <li><DownArrow onClick={() => setVote(vote + - 1)}/></li>
       </VoteContainer>
