@@ -35,9 +35,10 @@ const SearchForm = styled.input`
   font-weight: 400l
 `;
 
-const Search = () => {
+const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const handleChange = event => {
+    console.log(event.target.value)
     setSearchTerm(event.target.value);
   };
 
@@ -57,4 +58,4 @@ const Search = () => {
   )
 }
 
-export default Search;
+export default SearchBar;

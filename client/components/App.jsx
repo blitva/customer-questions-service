@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import GlobalStyles from '../globalStyles.js';
-import Search from './Search.jsx';
+import SearchBar from './SearchBar.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
+import SearchView from './SearchView.jsx';
 
 const AskContainer = styled.div`
   width: 800px;
@@ -75,7 +76,7 @@ const CustomerQuestions = () => {
         <GlobalStyles/>
         <h2>Customer questions & answers</h2>
         <div>
-          <Search/>
+          <SearchBar/>
         </div>
         {dataToShow.map((data, i) => {
           return (
@@ -98,6 +99,7 @@ const CustomerQuestions = () => {
             : <></>
             )}
         </SeeMoreQuestions>
+        <SearchView/>
       </div>
     )
   )
