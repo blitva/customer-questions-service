@@ -3,24 +3,29 @@ import styled from 'styled-components';
 
 const PopoverLightbox = styled.div`
   background: #0F1111;
-  z-index: 1008;
-  // opacity: 0.5;
+  z-index: -100;
+  opacity: 0.5;
   display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 `;
 
 const PopoverWrapper = styled.div`
   position: relative;
   border-radius: 8px;
-  // border: 1px solid;
+  border: 1px solid;
   border-color: #D5D9D9;
   box-shadow: 0 0 14px 0 rgb(15 17 17 / 50%);
   width: 460px;
-  height: 276px;
+  height: 260px;
   top: 363px;
   left: 400px;
   position: fixed;
-  background: rgba(0, 0, 0, 0.6);
   background-color: #fff;
+  z-index: 100;
 `;
 
 const Header = styled.header`
@@ -36,6 +41,7 @@ const H4 = styled.h4`
   padding: 16px 0;
   min-height: 56px;
   margin-right: 28px;
+  margin-top: 0px;
   line-height: 24px;
   font-size: 16px;
   font-weight: 700;
@@ -84,6 +90,7 @@ const Footer = styled.div`
   border-radius: 0 0 8px 8px;
   display: block;
   text-align: right;
+  background-color: #fff;
 `;
 
 const Button = styled.button`
@@ -120,7 +127,7 @@ const PostQuestionModal = ({show}) => {
   return (
     (!show
       ? null
-      : <PopoverLightbox>
+      : <>
           <PopoverWrapper>
               <Header>
                 <H4>Post your question</H4>
@@ -139,8 +146,9 @@ const PostQuestionModal = ({show}) => {
                 <Button>Cancel</Button>
                 <PostButton>Post</PostButton>
               </Footer>
-            </PopoverWrapper>
-        </PopoverLightbox>
+          <PopoverLightbox/>
+          </PopoverWrapper>
+        </>
     )
   )
 }
