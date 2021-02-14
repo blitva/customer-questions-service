@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import icons from '../images/icons.png';
 
 const PopoverLightbox = styled.div`
   background: #0F1111;
@@ -114,6 +115,31 @@ const Button = styled.button`
   }
 `;
 
+const CloseButton = styled.button`
+  margin: -85px 0 0;
+  padding: 16px;
+  display: block;
+  background-color: transparent;
+  border: 1px solid;
+  border-color: transparent;
+  float: right;
+  position: absolute;
+  right: 5px;
+  line-height: 0;
+`;
+
+const CloseIcon = styled.i`
+  opacity: .64;
+  width: 10px;
+  height: 9px;
+  background-position: -297px -5px;
+  background-image: url(${icons});
+  display: inline-block;
+  vertical-align: top;
+  background-size: 400px 900px;
+  background-repeat: no-repeat;
+`;
+
 const PostButton = styled(Button)`
   background: #f0c14b;
   border-color: #a88734 #9c7e31 #846a29;
@@ -123,30 +149,33 @@ const PostButton = styled(Button)`
 `;
 
 
-const PostQuestionModal = ({show}) => {
+const PostQuestionModal = ({ show, toggleModal }) => {
   return (
     (!show
       ? null
       : <>
           <PopoverWrapper>
-              <Header>
-                <H4>Post your question</H4>
-              </Header>
+            <Header>
+              <H4>Post your question</H4>
+              <CloseButton onClick={toggleModal}><CloseIcon/></CloseButton>
+            </Header>
 
-              <Content>
-                <Form>
-                  <div style={{'marginTop': '4px!important'}}>
-                    <TextArea placeholder="Please enter a question."></TextArea>
-                  </div>
-                </Form>
-                <P>Your question might be answered by sellers, manufacturers, or customers who bought this product.</P>
-              </Content>
+            <Content>
+              <Form>
+                <div style={{'marginTop': '4px!important'}}>
+                  <TextArea placeholder="Please enter a question."></TextArea>
+                </div>
+              </Form>
+              <P>Your question might be answered by sellers, manufacturers, or customers who bought this product.</P>
+            </Content>
 
-              <Footer>
-                <Button>Cancel</Button>
-                <PostButton>Post</PostButton>
-              </Footer>
-          <PopoverLightbox/>
+            <Footer>
+              <Button onClick={toggleModal}>Cancel</Button>
+              <PostButton>Post</PostButton>
+            </Footer>
+
+            <PopoverLightbox/>
+
           </PopoverWrapper>
         </>
     )

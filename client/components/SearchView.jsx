@@ -212,9 +212,7 @@ const SearchView = () => {
             </QuestionLink>
           </FollowUpQuestion>
       </AlsoAskedWidget>
-      <PostQuestionModal
-        show={showModal}
-      />
+      <PostQuestionModal show={showModal} toggleModal={toggleModal}/>
     </SearchViewWrapper>
   )
 }
