@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import icons from '../images/icons.png';
 
@@ -31,16 +31,22 @@ const SearchForm = styled.input`
   height: 31px;
   width: 100%;
   padding: 3px 25px 3px 29px;
-  cursor: default;
+  cursor: text;
   font-weight: 400l
 `;
 
-const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const handleChange = event => {
-    console.log(event.target.value)
-    setSearchTerm(event.target.value);
-  };
+const SearchBar = ({ handleSearch }) => {
+  const [query, setQuery] = useState('');
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const timeOutId = setTimeout(() => handleSearch(query), 500);
+      return () => clearTimeout(timeOutId);
+    } else {
+      isMounted.current = true;
+    }
+  }, [query])
 
   return (
     <SearchContainer>
@@ -50,8 +56,8 @@ const SearchBar = () => {
         maxlength='150'
         autocomplete='off'
         placeholder='Have a question? Search for answers'
-        value={searchTerm}
-        onChange={handleChange}
+        value={query}
+        onChange={e => setQuery(e.target.value)}
       >
       </SearchForm>
     </SearchContainer>

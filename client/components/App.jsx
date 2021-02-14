@@ -33,10 +33,16 @@ const CustomerQuestions = () => {
   const [customerQuestionsData, setCustomerQuestionsData] = useState(null);
   const [questionAnswers, setQuestionAnswers] = useState(customerQuestionsData);
   const [showAmt, setShowAmt] = useState(3);
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
   let dataToShow;
 
   if (customerQuestionsData !== null) {
     dataToShow = customerQuestionsData.slice(0, showAmt);
+  }
+
+  const handleSearch = (searchTerm) => {
+    console.log(`searching for ${searchTerm}`)
   }
 
 
@@ -76,7 +82,7 @@ const CustomerQuestions = () => {
         <GlobalStyles/>
         <h2>Customer questions & answers</h2>
         <div>
-          <SearchBar/>
+          <SearchBar handleSearch={handleSearch}/>
         </div>
         {dataToShow.map((data, i) => {
           return (
