@@ -7,7 +7,6 @@ import PostQuestionModal from './PostQuestionModal.jsx';
 
 const SearchViewWrapper = styled.div`
   display: block;
-  // max-width: 800px;
   width: 800px;
   overflow: hidden;
 `;
@@ -55,10 +54,6 @@ const Header = styled.h1`
   font-weight: 400;
   color: #565959!important;
 `;
-
-// const QandAResults = styled.div``;
-
-// const CustomerReviewsResults = stlyed.div``;
 
 const BottomQuestionContainer = styled.div`
   margin-top: 32px;

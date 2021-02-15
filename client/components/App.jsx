@@ -7,6 +7,7 @@ import SearchBar from './SearchBar.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 import SearchView from './SearchView.jsx';
+const _ = require('lodash');
 
 const AskContainer = styled.div`
   width: 800px;
@@ -31,9 +32,12 @@ const Button = styled.button`
 
 const CustomerQuestions = () => {
   const [customerQuestionsData, setCustomerQuestionsData] = useState();
-  const [questionAnswers, setQuestionAnswers] = useState(customerQuestionsData);
   const [showAmt, setShowAmt] = useState(3);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState({
+    productInfoResults: [],
+    QandAresults: [],
+    customerReviews: []
+  });
   const [isSearching, setIsSearching] = useState(false);
   const [httpStatusCode, setHttpStatusCode] = useState();
   let dataToShow;
@@ -48,6 +52,9 @@ const CustomerQuestions = () => {
     } else {
       console.log(`searching for ${searchTerm}`)
       setIsSearching(true);
+      setSearchResults({
+        QandAresults: filteredResults
+      })
     }
   }
 
