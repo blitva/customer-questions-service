@@ -30,19 +30,25 @@ const Button = styled.button`
 `;
 
 const CustomerQuestions = () => {
-  const [customerQuestionsData, setCustomerQuestionsData] = useState(null);
+  const [customerQuestionsData, setCustomerQuestionsData] = useState();
   const [questionAnswers, setQuestionAnswers] = useState(customerQuestionsData);
   const [showAmt, setShowAmt] = useState(3);
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [httpStatusCode, setHttpStatusCode] = useState();
   let dataToShow;
 
-  if (customerQuestionsData !== null) {
+  if (customerQuestionsData) {
     dataToShow = customerQuestionsData.slice(0, showAmt);
   }
 
   const handleSearch = (searchTerm) => {
-    console.log(`searching for ${searchTerm}`)
+    if (searchTerm === '') {
+      setIsSearching(false);
+    } else {
+      console.log(`searching for ${searchTerm}`)
+      setIsSearching(true);
+    }
   }
 
 
@@ -50,9 +56,11 @@ const CustomerQuestions = () => {
     axios.get(`/customer-questions/${productId}`)
       .then(res => {
         console.log(res);
-        setCustomerQuestionsData(res.data[0].questionAndAnswers)
+        setHttpStatusCode(res.status);
+        setCustomerQuestionsData(res.data[0].questionAndAnswers);
       })
       .catch(err => {
+        setHttpStatusCode(404);
         console.log(err);
       })
   }
@@ -74,40 +82,49 @@ const CustomerQuestions = () => {
     getCustomerQuestionsData(productId)
   }, []);
 
+  if (httpStatusCode === 404) {
+    return <div>404</div>
+  }
+
+  if (!customerQuestionsData) {
+    return <div>Loading...</div>
+  }
+
   return (
-    (customerQuestionsData === null
-    ? <div>404</div>
-    : <div>
-        {console.log(customerQuestionsData)}
-        <GlobalStyles/>
-        <h2>Customer questions & answers</h2>
-        <div>
-          <SearchBar handleSearch={handleSearch}/>
-        </div>
-        {dataToShow.map((data, i) => {
-          return (
-            <AskContainer key={i}>
-              <Votes votes={data.rating}/>
-              <QuestionsAnswers
-                question={data.question}
-                answers={data.answers}/>
-            </AskContainer>
-          )
-        })}
-        <SeeMoreQuestions>
-          {(customerQuestionsData.length === 3
-            ? <></>
-            : customerQuestionsData.length - showAmt === 0
-            ? <Button onClick={collapseAll}>Collapse</Button>
-            : customerQuestionsData.length > 3
-            ? <Button onClick={seeMore}>
-              See more answered questions ({customerQuestionsData.length - showAmt})</Button>
-            : <></>
-            )}
-        </SeeMoreQuestions>
-        <SearchView/>
+    <div>
+      <GlobalStyles/>
+      <h2>Customer questions & answers</h2>
+      <div>
+        <SearchBar handleSearch={handleSearch}/>
       </div>
-    )
+      {(isSearching
+        ? <SearchView/>
+        : <div>
+            {console.log(customerQuestionsData)}
+            {dataToShow.map((data, i) => {
+              return (
+                <AskContainer key={i}>
+                  <Votes votes={data.rating}/>
+                  <QuestionsAnswers
+                    question={data.question}
+                    answers={data.answers}/>
+                </AskContainer>
+              )
+            })}
+            <SeeMoreQuestions>
+              {(customerQuestionsData.length === 3
+                ? <></>
+                : customerQuestionsData.length - showAmt === 0
+                ? <Button onClick={collapseAll}>Collapse</Button>
+                : customerQuestionsData.length > 3
+                ? <Button onClick={seeMore}>
+                  See more answered questions ({customerQuestionsData.length - showAmt})</Button>
+                : <></>
+                )}
+            </SeeMoreQuestions>
+          </div>
+      )}
+    </div>
   )
 }
 
