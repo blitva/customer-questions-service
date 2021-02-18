@@ -107,7 +107,6 @@ const CustomerQuestions = () => {
       {(isSearching
         ? <SearchView/>
         : <div>
-            {console.log(customerQuestionsData)}
             {dataToShow.map((data, i) => {
               return (
                 <AskContainer key={i}>

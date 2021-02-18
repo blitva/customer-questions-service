@@ -66,10 +66,7 @@ const PostQuestionContainer = styled.div`
 `;
 
 const Question = styled.div`
-  padding-top: 18px;
-  padding-right: 22px;
-  padding-bottom: 18px;
-  padding-left: 22px;
+  padding: 18px 22px;
   font-weight: 700!important;
   font-size: 14px!important;
 `;
