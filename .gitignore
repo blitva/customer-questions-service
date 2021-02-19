@@ -24,3 +24,6 @@ coverage
 public/
 !index.html
 __snapshots__
+
+*.pem
+*.sh
