@@ -30,7 +30,7 @@ const Button = styled.button`
   position: relative;
 `;
 
-const Header = styled.h2`
+const Header = styled.h3`
   font-weight: 700;
   font-size: 24px;
   line-height: 32px;
