@@ -30,6 +30,12 @@ const Button = styled.button`
   position: relative;
 `;
 
+const Header = styled.h2`
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+`;
+
 const CustomerQuestions = () => {
   const [customerQuestionsData, setCustomerQuestionsData] = useState();
   const [showAmt, setShowAmt] = useState(3);
@@ -100,7 +106,7 @@ const CustomerQuestions = () => {
   return (
     <div>
       <GlobalStyles/>
-      <h3>Customer questions & answers</h3>
+      <Header>Customer questions & answers</Header>
       <div>
         <SearchBar handleSearch={handleSearch}/>
       </div>
