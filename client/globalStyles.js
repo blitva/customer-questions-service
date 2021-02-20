@@ -7,7 +7,6 @@ const GlobalStyles = createGlobalStyle`
     color: #0F1111;
     font-family:'Amazon Ember', Arial, sans-serif;
     max-width: 1504px;
-    margin: 0px auto 0px 20px;
   }
 
   h2 {
