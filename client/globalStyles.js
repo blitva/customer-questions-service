@@ -12,7 +12,7 @@ const GlobalStyles = createGlobalStyle`
 
   h2 {
     font-weight: 700;
-    font-size: 24px!important;
+    font-size: 24px;
     line-height: 32px;
   }
 
