@@ -100,7 +100,7 @@ const CustomerQuestions = () => {
   return (
     <div>
       <GlobalStyles/>
-      <h2>Customer questions & answers</h2>
+      <h3>Customer questions & answers</h3>
       <div>
         <SearchBar handleSearch={handleSearch}/>
       </div>

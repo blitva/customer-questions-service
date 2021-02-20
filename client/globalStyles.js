@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
     max-width: 1504px;
   }
 
-  h2 {
+  h3 {
     font-weight: 700;
     font-size: 24px;
     line-height: 32px;
