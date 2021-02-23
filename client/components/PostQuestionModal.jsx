@@ -46,6 +46,8 @@ const H4 = styled.h4`
   line-height: 24px;
   font-size: 16px;
   font-weight: 700;
+  letter-spacing: -.3px;
+  margin-bottom: 5px;
 `;
 
 const Content = styled.div`

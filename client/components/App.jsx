@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import GlobalStyles from '../globalStyles.js';
 import SearchBar from './SearchBar.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 import SearchView from './SearchView.jsx';
 const _ = require('lodash');
+
+const CustomerQuestionsStyles = styled.div`
+  font-size: 14px;
+  line-height: 20px;
+  color: #0F1111;
+  font-family:'Amazon Ember', Arial, sans-serif;
+  max-width: 1504px;
+`;
 
 const AskContainer = styled.div`
   width: 800px;
@@ -66,7 +73,7 @@ const CustomerQuestions = () => {
 
 
   const getCustomerQuestionsData = (productId) => {
-    axios.get(`http://ec2-3-22-93-125.us-east-2.compute.amazonaws.com:4001/customer-questions/${productId}`)
+    axios.get(`http://localhost:4001/customer-questions/${productId}`)
       .then(res => {
         console.log(res);
         setHttpStatusCode(res.status);
@@ -104,8 +111,7 @@ const CustomerQuestions = () => {
   }
 
   return (
-    <div>
-      <GlobalStyles/>
+    <CustomerQuestionsStyles>
       <Header>Customer questions & answers</Header>
       <div>
         <SearchBar handleSearch={handleSearch}/>
@@ -136,7 +142,7 @@ const CustomerQuestions = () => {
             </SeeMoreQuestions>
           </div>
       )}
-    </div>
+    </CustomerQuestionsStyles>
   )
 }
 
