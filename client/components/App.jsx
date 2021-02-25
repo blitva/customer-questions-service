@@ -63,7 +63,7 @@ const CustomerQuestions = () => {
     if (searchTerm === '') {
       setIsSearching(false);
     } else {
-      console.log(`searching for ${searchTerm}`)
+      // console.log(`searching for ${searchTerm}`)
       setIsSearching(true);
       setSearchResults({
         QandAresults: filteredResults
@@ -75,7 +75,6 @@ const CustomerQuestions = () => {
   const getCustomerQuestionsData = (productId) => {
     axios.get(`http://localhost:4001/customer-questions/${productId}`)
       .then(res => {
-        console.log(res);
         setHttpStatusCode(res.status);
         setCustomerQuestionsData(res.data[0].questionAndAnswers);
       })
