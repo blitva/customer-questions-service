@@ -6,7 +6,6 @@ import SearchBar from './SearchBar.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 import SearchView from './SearchView.jsx';
-const _ = require('lodash');
 
 const CustomerQuestionsStyles = styled.div`
   font-size: 14px;

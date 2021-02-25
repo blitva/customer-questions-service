@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import up_arrow from '../images/up_arrow.png';
-import down_arrow from '../images/down_arrow.png';
 
 const VoteWidget = styled.div`
   width: 65px;
@@ -20,7 +18,7 @@ const VoteContainer = styled.ul`
 `;
 
 const UpArrow = styled.button`
-  background-image: url(${up_arrow});
+  background-image: url('https://fec-icons.s3-us-west-1.amazonaws.com/up_arrow.png');
   background-size: 100%;
   background-repeat: no-repeat;
   border: none;
@@ -32,7 +30,7 @@ const UpArrow = styled.button`
 `;
 
 const DownArrow = styled(UpArrow)`
-  background-image: url(${down_arrow});
+  background-image: url('https://fec-icons.s3-us-west-1.amazonaws.com/down_arrow.png');
   padding: 5px;
 `;
 
