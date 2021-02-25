@@ -5,6 +5,13 @@ const cors = require('cors');
 const db = require('../database/database.js');
 
 app.use(cors());
+
+app.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
 app.use('/', express.static(__dirname + '/../public'));
 app.use('/:id', express.static(__dirname + '/../public'));
 
@@ -15,7 +22,6 @@ const corsOptions = {
 
 app.get('/customer-questions/:id', (req, res) => {
   const productId = parseInt(req.params.id, 10);
-  console.log(`Requesting product ${productId} from the database.`)
   db.load(productId, (err, data) => {
     if (err) {
       console.log(err);
@@ -27,7 +33,7 @@ app.get('/customer-questions/:id', (req, res) => {
 });
 
 const server = app.listen(port, () => {
-  console.log(`Express server listening at http://localhost:${port}`);
+  console.log(`Express server listening at port ${port}`);
 });
 
 module.exports = server;
