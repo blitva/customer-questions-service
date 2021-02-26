@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import icons from '../images/icons.png';
 
 const PopoverLightbox = styled.div`
   background: #0F1111;
@@ -46,6 +45,8 @@ const H4 = styled.h4`
   line-height: 24px;
   font-size: 16px;
   font-weight: 700;
+  letter-spacing: -.3px;
+  margin-bottom: 5px;
 `;
 
 const Content = styled.div`
@@ -133,7 +134,7 @@ const CloseIcon = styled.i`
   width: 10px;
   height: 9px;
   background-position: -297px -5px;
-  background-image: url(${icons});
+  background-image: url('https://fec-icons.s3-us-west-1.amazonaws.com/icons.png');
   display: inline-block;
   vertical-align: top;
   background-size: 400px 900px;

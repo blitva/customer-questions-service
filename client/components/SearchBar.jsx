@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import icons from '../images/icons.png';
 
 const SearchContainer = styled.div`
   height: 31px;
@@ -24,7 +23,7 @@ const SearchIcon = styled.i`
   vertical-align: top;
   background-size: 400px 900px;
   background-reapeat: no-repeat;
-  background-image: url(${icons});
+  background-image: url('https://fec-icons.s3-us-west-1.amazonaws.com/icons.png');
 `;
 
 const SearchForm = styled.input`

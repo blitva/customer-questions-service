@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import GlobalStyles from '../globalStyles.js';
 import SearchBar from './SearchBar.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 import SearchView from './SearchView.jsx';
-const _ = require('lodash');
+
+const CustomerQuestionsStyles = styled.div`
+  font-size: 14px;
+  line-height: 20px;
+  color: #0F1111;
+  font-family:'Amazon Ember', Arial, sans-serif;
+  max-width: 1504px;
+`;
 
 const AskContainer = styled.div`
   width: 800px;
@@ -30,6 +36,12 @@ const Button = styled.button`
   position: relative;
 `;
 
+const Header = styled.h3`
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+`;
+
 const CustomerQuestions = () => {
   const [customerQuestionsData, setCustomerQuestionsData] = useState();
   const [showAmt, setShowAmt] = useState(3);
@@ -50,7 +62,7 @@ const CustomerQuestions = () => {
     if (searchTerm === '') {
       setIsSearching(false);
     } else {
-      console.log(`searching for ${searchTerm}`)
+      // console.log(`searching for ${searchTerm}`)
       setIsSearching(true);
       setSearchResults({
         QandAresults: filteredResults
@@ -60,9 +72,8 @@ const CustomerQuestions = () => {
 
 
   const getCustomerQuestionsData = (productId) => {
-    axios.get(`/customer-questions/${productId}`)
+    axios.get(`http://ec2-3-22-93-125.us-east-2.compute.amazonaws.com:4001/customer-questions/${productId}`)
       .then(res => {
-        console.log(res);
         setHttpStatusCode(res.status);
         setCustomerQuestionsData(res.data[0].questionAndAnswers);
       })
@@ -98,9 +109,8 @@ const CustomerQuestions = () => {
   }
 
   return (
-    <div>
-      <GlobalStyles/>
-      <h2>Customer questions & answers</h2>
+    <CustomerQuestionsStyles>
+      <Header>Customer questions & answers</Header>
       <div>
         <SearchBar handleSearch={handleSearch}/>
       </div>
@@ -130,7 +140,7 @@ const CustomerQuestions = () => {
             </SeeMoreQuestions>
           </div>
       )}
-    </div>
+    </CustomerQuestionsStyles>
   )
 }
 
