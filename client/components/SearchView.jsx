@@ -112,7 +112,7 @@ const QuestionLink = styled.a`
 `;
 
 
-const SearchView = ({ QandAresults, productInfoResults, customerReviewsResults }) => {
+const SearchView = ({ handleSearch, customerQuestionsData, QandAresults, productInfoResults, customerReviewsResults }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTab, setSelectedTab] = useState('All');
   const tabs = ['All', 'Product Information', 'Customer Q&A\'s', 'Customer Reviews'];
@@ -123,6 +123,11 @@ const SearchView = ({ QandAresults, productInfoResults, customerReviewsResults }
 
   const setActiveTab = (e) => {
     setSelectedTab(e);
+  }
+
+  const handleQuestionClick = (e) => {
+    console.log(e.value)
+    /* handleSearch() */
   }
 
   const renderSearchViewTab = (param) => {
@@ -171,23 +176,15 @@ const SearchView = ({ QandAresults, productInfoResults, customerReviewsResults }
 
       <AlsoAskedWidget>
         <Header>Customers also asked</Header>
-        <FollowUpQuestion>
-          <QuestionLink>
-            is there a monthly service fee?
-          </QuestionLink>
-          </FollowUpQuestion>
-
-          <FollowUpQuestion>
-            <QuestionLink>
-              Esta Bosina es Recagable
-            </QuestionLink>
-          </FollowUpQuestion>
-
-          <FollowUpQuestion>
-            <QuestionLink>
-              How to connect this device via alexa app if network is hidden? i can’t find the option to manual add domain.
-            </QuestionLink>
-          </FollowUpQuestion>
+        {customerQuestionsData.map((data, i) => {
+          return (
+            <FollowUpQuestion key={i}>
+              <QuestionLink onClick={() => {handleSearch(data.question)}}>
+                {data.question}
+              </QuestionLink>
+            </FollowUpQuestion>
+          )
+        })}
       </AlsoAskedWidget>
       <PostQuestionModal show={showModal} toggleModal={toggleModal}/>
     </SearchViewWrapper>

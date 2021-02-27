@@ -75,6 +75,7 @@ const CustomerQuestions = () => {
   const [productId, setProductId] = useState(1000);
   const [customerQuestionsData, setCustomerQuestionsData] = useState();
   const [showAmt, setShowAmt] = useState(3);
+  const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState({
     QandAresults: [],
     productInfoResults: [],
@@ -93,6 +94,7 @@ const CustomerQuestions = () => {
       setIsSearching(false);
     } else {
       setIsSearching(true);
+      setQuery(searchTerm);
 
       let results1 = await questionsSearchHelper(customerQuestionsData, searchTerm);
       let results2 = await productSearchHelper(searchTerm, productId);
@@ -149,10 +151,12 @@ const CustomerQuestions = () => {
     <CustomerQuestionsStyles>
       <Header>Customer questions & answers</Header>
       <div>
-        <SearchBar handleSearch={handleSearch}/>
+        <SearchBar handleSearch={handleSearch} currentQuery={query}/>
       </div>
       {(isSearching
         ? <SearchView
+            handleSearch={handleSearch}
+            customerQuestionsData={customerQuestionsData}
             QandAresults={searchResults.QandAresults}
             productInfoResults={searchResults.productInfoResults}
             customerReviewsResults={searchResults.customerReviewsResults}/>
