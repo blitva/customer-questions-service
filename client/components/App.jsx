@@ -6,7 +6,7 @@ import SearchBar from './SearchBar.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 import SearchView from './SearchView.jsx';
-import searchHelper from './searchHelper.js';
+import {questionsSearchHelper, productSearchHelper} from './searchHelper.js';
 
 const CustomerQuestionsStyles = styled.div`
   font-size: 14px;
@@ -72,6 +72,7 @@ const Header = styled.h3`
 `;
 
 const CustomerQuestions = () => {
+  const [productId, setProductId] = useState(1000);
   const [customerQuestionsData, setCustomerQuestionsData] = useState();
   const [showAmt, setShowAmt] = useState(3);
   const [searchResults, setSearchResults] = useState({
@@ -87,19 +88,20 @@ const CustomerQuestions = () => {
     dataToShow = customerQuestionsData.slice(0, showAmt);
   }
 
-  const handleSearch = (searchTerm) => {
+  const handleSearch = async (searchTerm) => {
     if (searchTerm === '') {
       setIsSearching(false);
     } else {
       console.log(`searching for ${searchTerm}`)
       setIsSearching(true);
 
-      let searchResults = searchHelper(customerQuestionsData, searchTerm);
-      console.log('search results:', searchResults)
+      let results1 = await questionsSearchHelper(customerQuestionsData, searchTerm);
+      let results2 = await productSearchHelper(searchTerm, productId);
 
 
       setSearchResults({
-        QandAresults: searchResults
+        QandAresults: results1,
+        productInfoResults: results2
       })
     }
   }
@@ -108,7 +110,6 @@ const CustomerQuestions = () => {
   const getCustomerQuestionsData = (productId) => {
     axios.get(`http://localhost:4001/customer-questions/${productId}`)
       .then(res => {
-        console.log(res.data)
         setHttpStatusCode(res.status);
         setCustomerQuestionsData(res.data[0].questionAndAnswers);
       })
@@ -132,6 +133,7 @@ const CustomerQuestions = () => {
 
   useEffect(() => {
     const productId = window.location.pathname.split('/')[1] || 1000;
+    setProductId(productId)
     getCustomerQuestionsData(productId)
   }, []);
 
@@ -150,7 +152,9 @@ const CustomerQuestions = () => {
         <SearchBar handleSearch={handleSearch}/>
       </div>
       {(isSearching
-        ? <SearchView QandAresults={searchResults.QandAresults}/>
+        ? <SearchView
+            QandAresults={searchResults.QandAresults}
+            productInfoResults={searchResults.productInfoResults}/>
         : <div>
             {dataToShow.map((data, i) => {
               return (

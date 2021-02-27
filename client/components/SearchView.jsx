@@ -112,7 +112,7 @@ const QuestionLink = styled.a`
 `;
 
 
-const SearchView = ({ QandAresults }) => {
+const SearchView = ({ QandAresults, productInfoResults }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTab, setSelectedTab] = useState('All');
   const tabs = ['All', 'Product Information', 'Customer Q&A\'s', 'Customer Reviews'];
@@ -128,7 +128,7 @@ const SearchView = ({ QandAresults }) => {
   const renderSearchViewTab = (param) => {
     switch(param) {
       case 'Product Information':
-        return <ProductInformation/>
+        return <ProductInformation productInfoResults={productInfoResults} setSelectedTab={setSelectedTab}/>
       case 'Customer Q&A\'s':
         return <CustomerQandA QandAresults={QandAresults} setSelectedTab={setSelectedTab}/>
       case 'Customer Reviews':
@@ -136,7 +136,7 @@ const SearchView = ({ QandAresults }) => {
       default:
         return (
           <>
-            <ProductInformation/>
+            <ProductInformation productInfoResults={productInfoResults} setSelectedTab={setSelectedTab}/>
             <CustomerQandA QandAresults={QandAresults} setSelectedTab={setSelectedTab}/>
             <CustomerReviews/>
           </>

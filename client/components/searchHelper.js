@@ -1,9 +1,27 @@
-const searchHelper = (data, query) => {
+import axios from 'axios';
+
+const questionsSearchHelper = (data, query) => {
   let results = data.filter((ele) => {
-    return ele.question.toLowerCase().includes(query.toLowerCase())
+    return ele.question.toLowerCase().includes(query.toLowerCase());
   })
 
   return results;
 }
 
-export default searchHelper;
+const productSearchHelper = (query, productId) => {
+  return axios.get(`http://localhost:4004/description/${productId}`)
+    .then((res) => {
+      let itemDescription = res.data[0].itemDescription;
+      let results = itemDescription.filter((ele) => {
+        return ele.toLowerCase().includes(query.toLowerCase());
+      })
+
+      return results;
+    })
+    .catch((err) => {
+      console.log(err);
+      return [];
+    });
+}
+
+export {questionsSearchHelper, productSearchHelper};
