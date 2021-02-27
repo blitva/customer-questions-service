@@ -110,7 +110,7 @@ const CustomerQuestions = () => {
 
 
   const getCustomerQuestionsData = (productId) => {
-    axios.get(`http://localhost:4001/customer-questions/${productId}`)
+    axios.get(`http://ec2-3-22-93-125.us-east-2.compute.amazonaws.com:4001/customer-questions/${productId}`)
       .then(res => {
         setHttpStatusCode(res.status);
         setCustomerQuestionsData(res.data[0].questionAndAnswers);
