@@ -112,7 +112,7 @@ const QuestionLink = styled.a`
 `;
 
 
-const SearchView = () => {
+const SearchView = ({ QandAresults }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTab, setSelectedTab] = useState('All');
   const tabs = ['All', 'Product Information', 'Customer Q&A\'s', 'Customer Reviews'];
@@ -130,14 +130,14 @@ const SearchView = () => {
       case 'Product Information':
         return <ProductInformation/>
       case 'Customer Q&A\'s':
-        return <CustomerQandA/>
+        return <CustomerQandA QandAresults={QandAresults}/>
       case 'Customer Reviews':
         return <CustomerReviews/>
       default:
         return (
           <>
             <ProductInformation/>
-            <CustomerQandA/>
+            <CustomerQandA QandAresults={QandAresults}/>
             <CustomerReviews/>
           </>
         )

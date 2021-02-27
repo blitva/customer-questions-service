@@ -6,6 +6,7 @@ import SearchBar from './SearchBar.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 import SearchView from './SearchView.jsx';
+import searchHelper from './searchHelper.js';
 
 const CustomerQuestionsStyles = styled.div`
   font-size: 14px;
@@ -74,9 +75,8 @@ const CustomerQuestions = () => {
   const [customerQuestionsData, setCustomerQuestionsData] = useState();
   const [showAmt, setShowAmt] = useState(3);
   const [searchResults, setSearchResults] = useState({
+    QandAresults: [],
     productInfoResults: [],
-    filteredQuestions: [],
-    filteredAnswers: [],
     customerReviews: []
   });
   const [isSearching, setIsSearching] = useState(false);
@@ -91,18 +91,24 @@ const CustomerQuestions = () => {
     if (searchTerm === '') {
       setIsSearching(false);
     } else {
-      // console.log(`searching for ${searchTerm}`)
+      console.log(`searching for ${searchTerm}`)
       setIsSearching(true);
+
+      let searchResults = searchHelper(customerQuestionsData, searchTerm);
+      console.log('search results:', searchResults)
+
+
       setSearchResults({
-        QandAresults: filteredResults
+        QandAresults: searchResults
       })
     }
   }
 
 
   const getCustomerQuestionsData = (productId) => {
-    axios.get(`http://ec2-3-22-93-125.us-east-2.compute.amazonaws.com:4001/customer-questions/${productId}`)
+    axios.get(`http://localhost:4001/customer-questions/${productId}`)
       .then(res => {
+        console.log(res.data)
         setHttpStatusCode(res.status);
         setCustomerQuestionsData(res.data[0].questionAndAnswers);
       })
@@ -144,7 +150,7 @@ const CustomerQuestions = () => {
         <SearchBar handleSearch={handleSearch}/>
       </div>
       {(isSearching
-        ? <SearchView/>
+        ? <SearchView QandAresults={searchResults.QandAresults}/>
         : <div>
             {dataToShow.map((data, i) => {
               return (
