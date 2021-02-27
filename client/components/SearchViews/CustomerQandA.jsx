@@ -24,7 +24,7 @@ const Link = styled.a`
   &:hover { text-decoration: underline; }
 `;
 
-const Bold = styled.p`
+const Bold = styled.div`
   font-weight: bold;
   display: inline;
 `;
@@ -44,25 +44,29 @@ const dateConversion = (ISOdate) => {
   return `${month[m]} ${d}, ${y}`;
 }
 
-const CustomerQandA = ({ QandAresults }) => {
-  return (
-    <>
-      <Header>Customer questions & answers</Header>
-      {QandAresults.map((ele, i) => {
-        return (
-          <Answer>
-            <Bold><div>Q: {ele.question}</div></Bold>
-            <div><Bold>A:</Bold> {ele.answers[0].answer}</div>
-            <User>By {ele.answers[0].user} on {dateConversion(ele.answers[0].date)}</User>
-          </Answer>
+const CustomerQandA = ({ QandAresults, setSelectedTab }) => {
+  if (QandAresults.length === 0) {
+    return <Answer>There are 0 results in Customer Q&A's</Answer>
+  } else {
+    return (
+      <>
+        <Header>Customer questions & answers</Header>
+        {QandAresults.map((ele, i) => {
+          return (
+            <Answer key={i}>
+              <Bold><div>Q: {ele.question}</div></Bold>
+              <div><Bold>A:</Bold> {ele.answers[0].answer}</div>
+              <User>By {ele.answers[0].user} on {dateConversion(ele.answers[0].date)}</User>
+            </Answer>
 
-        )
-      })}
-      <LinkWrapper>
-          <Link>See 11 matching Q&A</Link>
-      </LinkWrapper>
-    </>
-  )
+          )
+        })}
+        <LinkWrapper>
+            <Link onClick={() => setSelectedTab('Customer Q&A\'s')}>See {QandAresults.length} matching Q&A</Link>
+        </LinkWrapper>
+      </>
+    )
+  }
 }
 
 export default CustomerQandA;

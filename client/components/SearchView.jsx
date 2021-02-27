@@ -130,14 +130,14 @@ const SearchView = ({ QandAresults }) => {
       case 'Product Information':
         return <ProductInformation/>
       case 'Customer Q&A\'s':
-        return <CustomerQandA QandAresults={QandAresults}/>
+        return <CustomerQandA QandAresults={QandAresults} setSelectedTab={setSelectedTab}/>
       case 'Customer Reviews':
         return <CustomerReviews/>
       default:
         return (
           <>
             <ProductInformation/>
-            <CustomerQandA QandAresults={QandAresults}/>
+            <CustomerQandA QandAresults={QandAresults} setSelectedTab={setSelectedTab}/>
             <CustomerReviews/>
           </>
         )
