@@ -24,4 +24,20 @@ const productSearchHelper = (query, productId) => {
     });
 }
 
-export {questionsSearchHelper, productSearchHelper};
+const reviewsSearchHelper = (query, productId) => {
+  let params = {
+    productId: productId,
+    searchText: query
+  }
+
+  return axios.get('http://localhost:4006/Reviews/searchReviews/', { params })
+  .then((res) => {
+    return res.data;
+  })
+  .catch((err) => {
+    console.log(err);
+    return [];
+  })
+}
+
+export {questionsSearchHelper, productSearchHelper, reviewsSearchHelper};

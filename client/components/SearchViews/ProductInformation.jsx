@@ -40,7 +40,12 @@ const Answer = styled.div`
 
 const ProductInformation = ({ productInfoResults, setSelectedTab }) => {
   if (productInfoResults.length === 0) {
-    return <Answer>There were 0 results in Product Information.</Answer>
+    return (
+      <>
+        <Answer>There were 0 results in Product Information.</Answer>
+        <HorizonalRule/>
+      </>
+    )
   } else {
     return (
       <>

@@ -6,7 +6,7 @@ import SearchBar from './SearchBar.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 import SearchView from './SearchView.jsx';
-import {questionsSearchHelper, productSearchHelper} from './searchHelper.js';
+import {questionsSearchHelper, productSearchHelper, reviewsSearchHelper} from './searchHelper.js';
 
 const CustomerQuestionsStyles = styled.div`
   font-size: 14px;
@@ -78,7 +78,7 @@ const CustomerQuestions = () => {
   const [searchResults, setSearchResults] = useState({
     QandAresults: [],
     productInfoResults: [],
-    customerReviews: []
+    customerReviewsResults: []
   });
   const [isSearching, setIsSearching] = useState(false);
   const [httpStatusCode, setHttpStatusCode] = useState();
@@ -92,16 +92,16 @@ const CustomerQuestions = () => {
     if (searchTerm === '') {
       setIsSearching(false);
     } else {
-      console.log(`searching for ${searchTerm}`)
       setIsSearching(true);
 
       let results1 = await questionsSearchHelper(customerQuestionsData, searchTerm);
       let results2 = await productSearchHelper(searchTerm, productId);
-
+      let results3 = await reviewsSearchHelper(searchTerm, productId);
 
       setSearchResults({
         QandAresults: results1,
-        productInfoResults: results2
+        productInfoResults: results2,
+        customerReviewsResults: results3
       })
     }
   }
@@ -154,7 +154,8 @@ const CustomerQuestions = () => {
       {(isSearching
         ? <SearchView
             QandAresults={searchResults.QandAresults}
-            productInfoResults={searchResults.productInfoResults}/>
+            productInfoResults={searchResults.productInfoResults}
+            customerReviewsResults={searchResults.customerReviewsResults}/>
         : <div>
             {dataToShow.map((data, i) => {
               return (

@@ -15,6 +15,7 @@ const User = styled.div`
 
 const LinkWrapper = styled.div`
   margin-top: 16px;
+  margin-bottom: 16px;
 `;
 
 const Link = styled.a`
@@ -33,6 +34,17 @@ const Answer = styled.div`
   margin-bottom: 10px;
 `;
 
+const HorizonalRule = styled.hr`
+  border-top: 1px solid #CCC;
+  background-color: transparent;
+  height 1px;
+  border-width: 0;
+  border-top-width: 1px;
+  border-top-style: solid;
+  margin-top: 0;
+  margin-bottom: 14px;
+`;
+
 const dateConversion = (ISOdate) => {
   const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -46,7 +58,12 @@ const dateConversion = (ISOdate) => {
 
 const CustomerQandA = ({ QandAresults, setSelectedTab }) => {
   if (QandAresults.length === 0) {
-    return <Answer>There are 0 results in Customer Q&A's</Answer>
+    return (
+      <>
+        <Answer>There are 0 results in Customer Q&A's</Answer>
+        <HorizonalRule/>
+      </>
+    )
   } else {
     return (
       <>
@@ -64,6 +81,7 @@ const CustomerQandA = ({ QandAresults, setSelectedTab }) => {
         <LinkWrapper>
             <Link onClick={() => setSelectedTab('Customer Q&A\'s')}>See {QandAresults.length} matching Q&A</Link>
         </LinkWrapper>
+        <HorizonalRule/>
       </>
     )
   }
