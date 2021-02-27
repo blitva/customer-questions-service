@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import SearchBar from './SearchBar.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
@@ -36,6 +36,34 @@ const Button = styled.button`
   position: relative;
 `;
 
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const LoadingIcon = styled.span`
+  background: url('https://m.media-amazon.com/images/S/sash/F0mWYzLleZMaLi7.png') 50% 50% no-repeat;
+  animation: ${fadeIn} .3s ease-in, ${rotate} 1s linear infinite;
+  width: 32px;
+  height: 32px;
+  background-size: 32px;
+  display: inline-block;
+`;
+
 const Header = styled.h3`
   font-weight: 700;
   font-size: 24px;
@@ -47,7 +75,8 @@ const CustomerQuestions = () => {
   const [showAmt, setShowAmt] = useState(3);
   const [searchResults, setSearchResults] = useState({
     productInfoResults: [],
-    QandAresults: [],
+    filteredQuestions: [],
+    filteredAnswers: [],
     customerReviews: []
   });
   const [isSearching, setIsSearching] = useState(false);
@@ -105,7 +134,7 @@ const CustomerQuestions = () => {
   }
 
   if (!customerQuestionsData) {
-    return <div>Loading...</div>
+    return <div><LoadingIcon/></div>
   }
 
   return (
