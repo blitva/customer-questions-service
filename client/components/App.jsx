@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import SearchBar from './SearchBar.jsx';
 import Votes from './Votes.jsx';
 import QuestionsAnswers from './QuestionsAnswers.jsx';
 import SearchView from './SearchView.jsx';
+import {questionsSearchHelper, productSearchHelper, reviewsSearchHelper} from './searchHelper.js';
 
 const CustomerQuestionsStyles = styled.div`
   font-size: 14px;
@@ -36,6 +37,34 @@ const Button = styled.button`
   position: relative;
 `;
 
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const LoadingIcon = styled.span`
+  background: url('https://m.media-amazon.com/images/S/sash/F0mWYzLleZMaLi7.png') 50% 50% no-repeat;
+  animation: ${fadeIn} .3s ease-in, ${rotate} 1s linear infinite;
+  width: 32px;
+  height: 32px;
+  background-size: 32px;
+  display: inline-block;
+`;
+
 const Header = styled.h3`
   font-weight: 700;
   font-size: 24px;
@@ -43,12 +72,14 @@ const Header = styled.h3`
 `;
 
 const CustomerQuestions = () => {
+  const [productId, setProductId] = useState(1000);
   const [customerQuestionsData, setCustomerQuestionsData] = useState();
   const [showAmt, setShowAmt] = useState(3);
+  const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState({
-    productInfoResults: [],
     QandAresults: [],
-    customerReviews: []
+    productInfoResults: [],
+    customerReviewsResults: []
   });
   const [isSearching, setIsSearching] = useState(false);
   const [httpStatusCode, setHttpStatusCode] = useState();
@@ -58,14 +89,21 @@ const CustomerQuestions = () => {
     dataToShow = customerQuestionsData.slice(0, showAmt);
   }
 
-  const handleSearch = (searchTerm) => {
+  const handleSearch = async (searchTerm) => {
     if (searchTerm === '') {
       setIsSearching(false);
     } else {
-      // console.log(`searching for ${searchTerm}`)
       setIsSearching(true);
+      setQuery(searchTerm);
+
+      let results1 = await questionsSearchHelper(customerQuestionsData, searchTerm);
+      let results2 = await productSearchHelper(searchTerm, productId);
+      let results3 = await reviewsSearchHelper(searchTerm, productId);
+
       setSearchResults({
-        QandAresults: filteredResults
+        QandAresults: results1,
+        productInfoResults: results2,
+        customerReviewsResults: results3
       })
     }
   }
@@ -97,6 +135,7 @@ const CustomerQuestions = () => {
 
   useEffect(() => {
     const productId = window.location.pathname.split('/')[1] || 1000;
+    setProductId(productId)
     getCustomerQuestionsData(productId)
   }, []);
 
@@ -105,17 +144,22 @@ const CustomerQuestions = () => {
   }
 
   if (!customerQuestionsData) {
-    return <div>Loading...</div>
+    return <div><LoadingIcon/></div>
   }
 
   return (
     <CustomerQuestionsStyles>
       <Header>Customer questions & answers</Header>
       <div>
-        <SearchBar handleSearch={handleSearch}/>
+        <SearchBar handleSearch={handleSearch} currentQuery={query}/>
       </div>
       {(isSearching
-        ? <SearchView/>
+        ? <SearchView
+            handleSearch={handleSearch}
+            customerQuestionsData={customerQuestionsData}
+            QandAresults={searchResults.QandAresults}
+            productInfoResults={searchResults.productInfoResults}
+            customerReviewsResults={searchResults.customerReviewsResults}/>
         : <div>
             {dataToShow.map((data, i) => {
               return (

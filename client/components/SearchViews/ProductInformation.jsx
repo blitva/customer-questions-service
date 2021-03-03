@@ -34,22 +34,39 @@ const HorizonalRule = styled.hr`
   margin-bottom: 14px;
 `;
 
-const ProductInformation = () => {
-  return (
-    <>
-      <ProductInfoResults>
-        <div>
-          <Span>
-            Ready to help - Ask Alexa to play music, answer questions, play the news, check the weather, set alarms, control compatible smart home devices, and more.
-          </Span>
-        </div>
-        <LinkWrapper>
-          <Link>See 1 matches from product info</Link>
-        </LinkWrapper>
-      </ProductInfoResults>
-      <HorizonalRule/>
-    </>
-  )
+const Answer = styled.div`
+  margin-bottom: 10px;
+`;
+
+const ProductInformation = ({ productInfoResults, setSelectedTab }) => {
+  if (productInfoResults.length === 0) {
+    return (
+      <>
+        <Answer>There were 0 results in Product Information.</Answer>
+        <HorizonalRule/>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <ProductInfoResults>
+          <div>
+            {productInfoResults.map((data, i) => {
+              return (
+                <Answer key={i}>
+                  {data}
+                </Answer>
+              )
+            })}
+          </div>
+          <LinkWrapper>
+            <Link onClick={() => setSelectedTab('Product Information')}>See {productInfoResults.length} matches from product info</Link>
+          </LinkWrapper>
+        </ProductInfoResults>
+        <HorizonalRule/>
+      </>
+    )
+  }
 }
 
 export default ProductInformation;

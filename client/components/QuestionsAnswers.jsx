@@ -38,6 +38,7 @@ const StyledAnswers = styled(Question)`
 const Links = styled.a`
   color: #007185;
   text-decoration: none;
+  cursor: pointer;
   &:hover { text-decoration: underline; }
 `;
 
@@ -48,7 +49,7 @@ const QuestionsAnswers = (props) => {
       <QuestionBlock id="test">
         <QuestionHeader>Question:</QuestionHeader>
         <Question>
-          <Links href="#">
+          <Links>
             {props.question}
           </Links>
         </Question>

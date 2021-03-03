@@ -112,7 +112,7 @@ const QuestionLink = styled.a`
 `;
 
 
-const SearchView = () => {
+const SearchView = ({ handleSearch, customerQuestionsData, QandAresults, productInfoResults, customerReviewsResults }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTab, setSelectedTab] = useState('All');
   const tabs = ['All', 'Product Information', 'Customer Q&A\'s', 'Customer Reviews'];
@@ -125,20 +125,25 @@ const SearchView = () => {
     setSelectedTab(e);
   }
 
+  const handleQuestionClick = (e) => {
+    console.log(e.value)
+    /* handleSearch() */
+  }
+
   const renderSearchViewTab = (param) => {
     switch(param) {
       case 'Product Information':
-        return <ProductInformation/>
+        return <ProductInformation productInfoResults={productInfoResults} setSelectedTab={setSelectedTab}/>
       case 'Customer Q&A\'s':
-        return <CustomerQandA/>
+        return <CustomerQandA QandAresults={QandAresults} setSelectedTab={setSelectedTab}/>
       case 'Customer Reviews':
-        return <CustomerReviews/>
+        return <CustomerReviews customerReviewsResults={customerReviewsResults} setSelectedTab={setSelectedTab}/>
       default:
         return (
           <>
-            <ProductInformation/>
-            <CustomerQandA/>
-            <CustomerReviews/>
+            <ProductInformation productInfoResults={productInfoResults} setSelectedTab={setSelectedTab}/>
+            <CustomerQandA QandAresults={QandAresults} setSelectedTab={setSelectedTab}/>
+            <CustomerReviews customerReviewsResults={customerReviewsResults} setSelectedTab={setSelectedTab}/>
           </>
         )
     }
@@ -171,23 +176,15 @@ const SearchView = () => {
 
       <AlsoAskedWidget>
         <Header>Customers also asked</Header>
-        <FollowUpQuestion>
-          <QuestionLink>
-            is there a monthly service fee?
-          </QuestionLink>
-          </FollowUpQuestion>
-
-          <FollowUpQuestion>
-            <QuestionLink>
-              Esta Bosina es Recagable
-            </QuestionLink>
-          </FollowUpQuestion>
-
-          <FollowUpQuestion>
-            <QuestionLink>
-              How to connect this device via alexa app if network is hidden? i can’t find the option to manual add domain.
-            </QuestionLink>
-          </FollowUpQuestion>
+        {customerQuestionsData.map((data, i) => {
+          return (
+            <FollowUpQuestion key={i}>
+              <QuestionLink onClick={() => {handleSearch(data.question)}}>
+                {data.question}
+              </QuestionLink>
+            </FollowUpQuestion>
+          )
+        })}
       </AlsoAskedWidget>
       <PostQuestionModal show={showModal} toggleModal={toggleModal}/>
     </SearchViewWrapper>

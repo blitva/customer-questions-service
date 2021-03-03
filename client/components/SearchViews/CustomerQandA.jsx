@@ -7,8 +7,15 @@ const Header = styled.h1`
   color: #565959!important;
 `;
 
+const User = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+  color: #565959!important;
+`;
+
 const LinkWrapper = styled.div`
   margin-top: 16px;
+  margin-bottom: 16px;
 `;
 
 const Link = styled.a`
@@ -18,19 +25,66 @@ const Link = styled.a`
   &:hover { text-decoration: underline; }
 `;
 
-const CustomerQandA = () => {
-  return (
-    <>
-      <Header>Customer questions & answers</Header>
-      <div>Q: How do i cancel my alarms</div>
-      <div>A: On alexa app udner manage alarms simply say "alexa, cancel alarms.."</div>
-      <div>By Eric Feel on December 23, 2020</div>
+const Bold = styled.div`
+  font-weight: bold;
+  display: inline;
+`;
 
-      <LinkWrapper>
-          <Link>See 11 matching Q&A</Link>
-      </LinkWrapper>
-    </>
-  )
+const Answer = styled.div`
+  margin-bottom: 10px;
+`;
+
+const HorizonalRule = styled.hr`
+  border-top: 1px solid #CCC;
+  background-color: transparent;
+  height 1px;
+  border-width: 0;
+  border-top-width: 1px;
+  border-top-style: solid;
+  margin-top: 0;
+  margin-bottom: 14px;
+`;
+
+const dateConversion = (ISOdate) => {
+  const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  let date = new Date(ISOdate);
+  let m = date.getMonth();
+  let d = date.getDate();
+  let y = date.getFullYear();
+
+  return `${month[m]} ${d}, ${y}`;
+}
+
+const CustomerQandA = ({ QandAresults, setSelectedTab }) => {
+  if (QandAresults.length === 0) {
+    return (
+      <>
+        <Answer>There are 0 results in Customer Q&A's</Answer>
+        <HorizonalRule/>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <Header>Customer questions & answers</Header>
+        {QandAresults.map((ele, i) => {
+          return (
+            <Answer key={i}>
+              <Bold><div>Q: {ele.question}</div></Bold>
+              <div><Bold>A:</Bold> {ele.answers[0].answer}</div>
+              <User>By {ele.answers[0].user} on {dateConversion(ele.answers[0].date)}</User>
+            </Answer>
+
+          )
+        })}
+        <LinkWrapper>
+            <Link onClick={() => setSelectedTab('Customer Q&A\'s')}>See {QandAresults.length} matching Q&A</Link>
+        </LinkWrapper>
+        <HorizonalRule/>
+      </>
+    )
+  }
 }
 
 export default CustomerQandA;
