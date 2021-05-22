@@ -18,8 +18,8 @@
     }
   },
   "scripts": {
-    "mocha-tests": "./node_modules/mocha/bin/mocha --no-deprecation",
-    "test": "jest -u",
+    "back-end-tests": "./node_modules/mocha/bin/mocha --no-deprecation",
+    "front-end-tests": "jest -u",
     "seeder": "node database/seed-data/seeder.js",
     "react-dev": "webpack --mode=development --watch",
     "start-dev": "nodemon server/server.js",
