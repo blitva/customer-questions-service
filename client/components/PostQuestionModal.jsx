@@ -127,6 +127,7 @@ const CloseButton = styled.button`
   position: absolute;
   right: 5px;
   line-height: 0;
+  cursor: pointer;
 `;
 
 const CloseIcon = styled.i`

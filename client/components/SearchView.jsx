@@ -83,6 +83,7 @@ const Button = styled.button`
   text-align: center;
   text-decoration: none!important;
   vertical-algin: middle;
+  cursor: pointer;
   &:focus {
     outline: none;
     border-color: #e77600;
